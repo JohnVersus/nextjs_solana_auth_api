@@ -1,21 +1,12 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth";
+import Moralis from "moralis";
 
 export default NextAuth({
   providers: [
     CredentialsProvider({
       name: "MoralisAuth",
       credentials: {
-        address: {
-          label: "Address",
-          type: "text",
-          placeholder: "0x0",
-        },
-        chain: {
-          label: "ChainName",
-          type: "text",
-          placeholder: "0x0",
-        },
         message: {
           label: "Message",
           type: "text",
@@ -29,15 +20,18 @@ export default NextAuth({
       },
       async authorize(credentials) {
         try {
-          const { address, chain, message, signature } = credentials;
+          const { message, signature } = credentials;
+          await Moralis.start({ apiKey: process.env.MORALIS_API_KEY });
 
+          const { address, network, profileId, expirationTime } = (
+            await Moralis.Auth.verify({ message, signature, network: "solana" })
+          ).raw;
           const user = {
             address,
-            chain,
-            message,
-            signature,
+            network,
+            profileId,
+            expirationTime,
           };
-
           return user;
         } catch (e) {
           console.error(e);

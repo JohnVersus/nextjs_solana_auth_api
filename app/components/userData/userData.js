@@ -10,11 +10,31 @@ export default function UserData() {
     return (
       <div className={styles.data}>
         <div className={styles.dataCell}>
+          <Typography variant="subtitle2">Profile Id:</Typography>
+          <div className={styles.address}>
+            <Typography variant="body16">{session?.user.profileId}</Typography>
+          </div>
+        </div>
+        <div className={styles.dataCell}>
           <Typography variant="subtitle2">Account:</Typography>
           <div className={styles.address}>
             {/* account address */}
             <Typography copyable variant="body16">
               {session?.user.address}
+            </Typography>
+          </div>
+        </div>
+        <div className={styles.dataCell}>
+          <Typography variant="subtitle2">Network:</Typography>
+          <div className={styles.address}>
+            <Typography variant="body16">{session?.user.network}</Typography>
+          </div>
+        </div>
+        <div className={styles.dataCell}>
+          <Typography variant="subtitle2">ExpTime:</Typography>
+          <div className={styles.address}>
+            <Typography variant="body16">
+              {session?.user.expirationTime}
             </Typography>
           </div>
         </div>

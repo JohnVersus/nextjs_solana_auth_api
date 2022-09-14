@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "@web3uikit/core";
 import { signIn } from "next-auth/react";
+import { apiPost } from "../../utils/apiPost";
+import base58 from "bs58";
 
-export default function LoginBtn() {
+export default function PhantomBtn() {
   const authenticate = async () => {
     const provider = window.phantom?.solana;
     const resp = await provider.connect();
@@ -13,21 +15,17 @@ export default function LoginBtn() {
       chain: chain,
       network: "solana",
     };
-    const message = "Sign to provide access to app";
+    // const message = "Sign to provide access to app";
+    const { message } = await apiPost("api/auth/request-message", account);
     const encodedMessage = new TextEncoder().encode(message);
     const signedMessage = await provider.signMessage(encodedMessage, "utf8");
-    const signature = window.btoa(
-      String.fromCharCode.apply(null, signedMessage.signature)
-    );
+    const signature = base58.encode(signedMessage.signature);
     try {
       await signIn("credentials", {
-        address,
-        chain,
         message,
         signature,
         redirect: false,
       });
-      push("/");
     } catch (e) {
       return;
     }
@@ -35,7 +33,7 @@ export default function LoginBtn() {
 
   return (
     <Button
-      text="Login"
+      text="Phantom"
       theme="primary"
       onClick={() => {
         authenticate();

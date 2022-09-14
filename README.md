@@ -1,6 +1,6 @@
 # Info
 
-This is a simple NFT gating application created using the [Moralis](https://moralis.io/) solana API using the next.js framework.
+This is a simple NextJs App that lets you use [Moralis](https://moralis.io/) Auth API to create web3 user session with the Solana web3 wallets.
 
 # Getting Started
 
@@ -22,13 +22,13 @@ yarn install
 
 ## Start local server
 
-Run the development server in port 8000 as the `NEXTAUTH_URL` in env.local file is set to this port. Can be updated to the required port.
+Run the development server in port 8000 as the `NEXTAUTH_URL` in env.local file is set to this port. This can be updated to the required port after changing the `NEXTAUTH_URL` in the env.local fuile.
 
 ```bash
 yarn run dev -p 8000
 ```
 
-Open [http://localhost:8000](http://localhost:8000) with your browser to see the result.
+Open [http://localhost:8000](http://localhost:8000) with your browser to see the and
 
 ## Learn More
 
