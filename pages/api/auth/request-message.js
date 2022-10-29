@@ -18,7 +18,7 @@ const NOT_BEFORE = TIME.toISOString();
 const TIMEOUT = 30;
 
 export default async function handler(req, res) {
-  const { address, chain, network } = req.body;
+  const { address, chain, network } = JSON.parse(req.body);
 
   await Moralis.start({ apiKey: process.env.MORALIS_API_KEY });
 
