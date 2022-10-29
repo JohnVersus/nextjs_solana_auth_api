@@ -22,13 +22,13 @@ yarn install
 
 ## Start local server
 
-Run the development server in port 8000 as the `NEXTAUTH_URL` in env.local file is set to this port. This can be updated to the required port after changing the `NEXTAUTH_URL` in the env.local fuile.
+Run the development server 
 
 ```bash
 yarn run dev
 ```
 
-Open [http://localhost:8000](http://localhost:8000) with your browser to see the and
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the and
 
 ## Learn More
 
