@@ -36,10 +36,10 @@ export default function Home() {
                 </Typography>
                 <br />
                 <PhantomBtn />
-                {/* <br />
-                <SolflareBtn /> */}
-                {/* <br />
-                <WalletAdaptor /> */}
+                <br />
+                <SolflareBtn />
+                <br />
+                <WalletAdaptor />
               </>
             ) : (
               <Typography variant="caption14">Loading...</Typography>

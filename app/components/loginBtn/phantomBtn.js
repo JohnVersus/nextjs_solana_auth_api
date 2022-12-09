@@ -11,13 +11,7 @@ export default function PhantomBtn() {
     const provider = window.phantom?.solana;
     const resp = await provider.connect();
     const address = resp.publicKey.toString();
-    const chain = "devnet";
-    const account = {
-      address: address,
-      chain: chain,
-      network: "solana",
-    };
-    // const message = "Sign to provide access to app";
+
     const challenge = await requestChallengeAsync({
       address,
       network: "devnet",
