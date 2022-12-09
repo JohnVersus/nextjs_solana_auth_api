@@ -6,6 +6,7 @@ import LogoutBtn from "../app/components/logoutBtn/logoutBtn";
 import { WalletDisconnectButton } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 require("@solana/wallet-adapter-react-ui/styles.css");
+
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   if (!session) {
@@ -17,9 +18,10 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ userSession }) {
-  const { publicKey, disconnecting } = useWallet();
+  const { publicKey, disconnecting, connected } = useWallet();
   const [isPending, startTransition] = useTransition();
 
+  console.log(userSession);
   useEffect(() => {
     startTransition(() => {
       publicKey && console.log(publicKey.toBase58());
@@ -46,10 +48,10 @@ export default function Home({ userSession }) {
             <>
               <UserData />
               <div className={styles.buttonsRow}>
-                {publicKey ? (
+                {connected || disconnecting ? (
                   <WalletDisconnectButton />
                 ) : (
-                  !disconnecting && <LogoutBtn />
+                  <LogoutBtn />
                 )}
               </div>
             </>

@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import PhantomBtn from "../app/components/loginBtn/phantomBtn";
 import SolflareBtn from "../app/components/loginBtn/solflareBtn";
 import WalletAdaptor from "../app/components/loginBtn/walletAdaptor";
+
 export default function Home() {
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -35,10 +36,10 @@ export default function Home() {
                 </Typography>
                 <br />
                 <PhantomBtn />
-                <br />
-                <SolflareBtn />
-                <br />
-                <WalletAdaptor />
+                {/* <br />
+                <SolflareBtn /> */}
+                {/* <br />
+                <WalletAdaptor /> */}
               </>
             ) : (
               <Typography variant="caption14">Loading...</Typography>

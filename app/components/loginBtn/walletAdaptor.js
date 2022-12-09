@@ -4,41 +4,59 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 require("@solana/wallet-adapter-react-ui/styles.css");
 import base58 from "bs58";
 import { apiPost } from "../../utils/apiPost";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
+import { useAuthRequestChallengeSolana } from "@moralisweb3/next";
 
 export default function WalletAdaptor() {
-  const { publicKey, signMessage } = useWallet();
+  const { publicKey, signMessage, disconnecting, disconnect, connected } =
+    useWallet();
   const [signed, setSigned] = useState(false);
+  const { requestChallengeAsync, error } = useAuthRequestChallengeSolana();
 
   const signCustomMessage = async () => {
     const address = publicKey.toBase58();
-    const chain = "devnet";
-    const account = {
-      address: address,
-      chain: chain,
-      network: "solana",
-    };
-    // const message = "Sign to provide access to app";
-    const { message } = await apiPost("api/auth/request-message", account);
+
+    const { message } = await requestChallengeAsync({
+      address,
+      network: "devnet",
+    });
     const encodedMessage = new TextEncoder().encode(message);
     const signedMessage = await signMessage(encodedMessage, "utf8");
     setSigned(true);
     const signature = base58.encode(signedMessage);
     try {
-      await signIn("credentials", {
+      const { error } = await signIn("credentials", {
         message,
         signature,
+        network: "Solana",
         redirect: false,
       });
+      if (error) {
+        throw new Error(error);
+      }
     } catch (e) {
+      disconnect();
       console.log(e);
       return;
     }
   };
 
   useEffect(() => {
-    publicKey ? !signed && signCustomMessage() : setSigned(false);
-  }, [publicKey]);
+    if (error) {
+      disconnect();
+      console.log(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (disconnecting) {
+      signOut({ redirect: false });
+    }
+  }, [disconnecting]);
+
+  useEffect(() => {
+    connected && signCustomMessage();
+  }, [connected]);
 
   return (
     <>
