@@ -8,6 +8,7 @@ export default function SolflareBtn() {
   const { requestChallengeAsync, error } = useAuthRequestChallengeSolana();
   const authenticate = async () => {
     const provider = window.solflare;
+    await provider.connect();
     const address = provider.publicKey.toString();
     const { message } = await requestChallengeAsync({
       address,

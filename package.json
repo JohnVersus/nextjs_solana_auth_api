@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@moralisweb3/next": "^2.8.2",
+    "@moralisweb3/next": "2.8.2",
     "@solana-mobile/wallet-adapter-mobile": "^0.9.1",
     "@solana/wallet-adapter-base": "^0.9.16",
     "@solana/wallet-adapter-react": "^0.15.18",
