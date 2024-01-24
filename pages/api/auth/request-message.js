@@ -18,9 +18,10 @@ const NOT_BEFORE = TIME.toISOString();
 const TIMEOUT = 30;
 
 export default async function handler(req, res) {
-  const { address, chain, network } = JSON.parse(req.body);
+  const { address, chain, network } = req.body;
 
-  await Moralis.start({ apiKey: process.env.MORALIS_API_KEY });
+  if (!Moralis.Core.isStarted)
+    await Moralis.start({ apiKey: process.env.MORALIS_API_KEY });
 
   try {
     if (!DOMAIN || !URI) {
@@ -29,7 +30,7 @@ export default async function handler(req, res) {
 
     const message = await Moralis.Auth.requestMessage({
       address: address,
-      solNetwork: chain,
+      networkType: chain,
       network: network,
       domain: DOMAIN,
       statement: STATEMENT,

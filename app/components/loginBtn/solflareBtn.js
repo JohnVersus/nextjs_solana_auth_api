@@ -9,11 +9,11 @@ export default function SolflareBtn() {
     const provider = window.solflare;
     const resp = await provider.connect();
     const address = provider.publicKey.toString();
-    const chain = "devnet";
+    const chain = "solana";
     const account = {
       address: address,
       chain: chain,
-      network: "solana",
+      network: "devnet",
     };
     // const message = "Sign to provide access to app";
     const { message } = await apiPost("api/auth/request-message", account);

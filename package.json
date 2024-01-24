@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@moralisweb3/next": "^2.24.0",
     "@solana-mobile/wallet-adapter-mobile": "^0.9.1",
     "@solana/wallet-adapter-base": "^0.9.16",
     "@solana/wallet-adapter-react": "^0.15.18",
@@ -25,6 +26,7 @@
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
+    "@types/react": "18.2.48",
     "eslint": "8.21.0",
     "eslint-config-next": "12.2.4"
   }
