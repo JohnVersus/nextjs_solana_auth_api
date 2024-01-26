@@ -12,11 +12,11 @@ export default function WalletAdaptor() {
 
   const signCustomMessage = async () => {
     const address = publicKey.toBase58();
-    const chain = "devnet";
+    const chain = "solana";
     const account = {
       address: address,
       chain: chain,
-      network: "solana",
+      network: "devnet",
     };
     // const message = "Sign to provide access to app";
     const { message } = await apiPost("api/auth/request-message", account);
